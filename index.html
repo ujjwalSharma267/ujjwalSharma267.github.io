@@ -113,7 +113,7 @@
   .badge:hover { border-color: var(--accent); color: var(--accent); }
 
   .hero-scroll {
-    margin-top: 4rem;
+    margin-top: 2rem;
     font-family: var(--mono);
     font-size: 0.65rem;
     color: var(--muted);
@@ -123,7 +123,7 @@
     align-items: center;
     gap: 0.75rem;
     opacity: 0;
-    animation: fadeUp 0.7s 0.85s forwards;
+    animation: fadeUp 0.7s 0.95s forwards;
   }
 
   .hero-scroll::before {
@@ -416,6 +416,140 @@
 
   .footer-links a:hover { color: var(--accent); }
 
+  /* ── RESUME BUTTON ── */
+  .hero-actions {
+    margin-top: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.75s forwards;
+  }
+
+  .btn-resume {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-resume:hover { background: #00c8e0; transform: translateY(-1px); }
+  .btn-icon { font-size: 1rem; font-family: var(--sans); }
+
+  /* ── CERTIFICATIONS ── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .cert-card {
+    background: var(--surface);
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cert-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--cert-color, var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .cert-card:hover { background: #111d2b; }
+  .cert-card:hover::before { transform: scaleX(1); }
+
+  .cert-issuer {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cert-color, var(--accent));
+  }
+
+  .cert-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--text);
+  }
+
+  .cert-code {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-block {
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: var(--surface);
+    transition: background 0.2s;
+  }
+  .edu-block:hover { background: #111d2b; }
+
+  .edu-degree {
+    font-weight: 800;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    letter-spacing: -0.01em;
+  }
+
+  .edu-school {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  .edu-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+  }
+
+  .edu-year {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .edu-score {
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -462,6 +596,11 @@
     <span class="badge">Istio</span>
     <span class="badge">ELK Stack</span>
   </div>
+  <div class="hero-actions">
+    <a class="btn-resume" href="ujjwal_sharma_devops_resume.pdf" download="Ujjwal_Kumar_Sharma_Resume.pdf">
+      <span class="btn-icon">↓</span> Download Resume
+    </a>
+  </div>
   <div class="hero-scroll">scroll to explore</div>
 </header>
 
@@ -481,6 +620,31 @@
     <h2 class="section-title">Skills</h2>
   </div>
   <div class="skills-grid reveal" id="skillsGrid"></div>
+</section>
+
+<!-- ── CERTIFICATIONS ── -->
+<section>
+  <div class="section-header">
+    <span class="section-num">03 //</span>
+    <h2 class="section-title">Certifications</h2>
+  </div>
+  <div class="certs-grid reveal" id="certsGrid"></div>
+</section>
+
+<!-- ── EDUCATION ── -->
+<section>
+  <div class="section-header">
+    <span class="section-num">04 //</span>
+    <h2 class="section-title">Education</h2>
+  </div>
+  <div class="edu-block reveal">
+    <div class="edu-degree">B.Tech – Computer Science Engineering</div>
+    <div class="edu-school">AIET</div>
+    <div class="edu-meta">
+      <span class="edu-year">2019 – 2023</span>
+      <span class="edu-score">91.2%</span>
+    </div>
+  </div>
 </section>
 
 <!-- ── FOOTER ── -->
@@ -668,6 +832,30 @@ document.getElementById('modalOverlay').addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.getElementById('modalOverlay').classList.remove('open');
+});
+
+// Certifications
+const certs = [
+  { issuer: "Amazon Web Services", name: "AWS Certified AI Practitioner", code: "AIF-C01", color: "#ff9900" },
+  { issuer: "Microsoft Azure", name: "Azure Fundamentals", code: "AZ-900", color: "#0078d4" },
+  { issuer: "Microsoft Power Platform", name: "Power BI Data Analyst", code: "PL-300", color: "#f2c811" },
+  { issuer: "Docker", name: "Docker Certification", code: "Docker Certified", color: "#2496ed" },
+  { issuer: "HashiCorp", name: "Terraform for DevOps", code: "Terraform", color: "#7b42bc" },
+  { issuer: "Red Hat", name: "Ansible Automation", code: "Ansible", color: "#ee0000" },
+  { issuer: "Linux Foundation", name: "Linux & Bash Scripting", code: "Linux Admin", color: "#00e5ff" },
+];
+
+const cg = document.getElementById('certsGrid');
+certs.forEach(c => {
+  const card = document.createElement('div');
+  card.className = 'cert-card reveal';
+  card.style.setProperty('--cert-color', c.color);
+  card.innerHTML = `
+    <div class="cert-issuer">${c.issuer}</div>
+    <div class="cert-name">${c.name}</div>
+    <div class="cert-code">${c.code}</div>
+  `;
+  cg.appendChild(card);
 });
 
 // Scroll reveal
