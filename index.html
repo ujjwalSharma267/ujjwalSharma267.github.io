@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ujjwal Kumar Sharma – DevOps Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #090d12;
+    --surface: #0e1520;
+    --border: #1e2d42;
+    --accent: #00e5ff;
+    --accent2: #ff6b35;
+    --accent3: #a78bfa;
+    --text: #e2eaf4;
+    --muted: #6b7f96;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    overflow-x: hidden;
+  }
+
+  /* ── GRID BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HERO ── */
+  header {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 6vw 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+
+  h1 {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .hero-sub {
+    margin-top: 2rem;
+    font-family: var(--mono);
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .badge:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-scroll {
+    margin-top: 4rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.85s forwards;
+  }
+
+  .hero-scroll::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--muted);
+    animation: expandLine 1.2s 1.2s forwards;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+
+  /* ── SECTION WRAPPER ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 6vw;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+  }
+
+  .section-title {
+    font-weight: 800;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── PROJECT CARDS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1.5px solid var(--border);
+  }
+
+  .card {
+    background: var(--surface);
+    padding: 2rem;
+    cursor: pointer;
+    transition: background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent-color, var(--accent));
+    transition: height 0.3s ease;
+  }
+
+  .card:hover { background: #111d2b; }
+  .card:hover::after { height: 100%; }
+
+  .card-num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .card-desc {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(0,229,255,0.06);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 2px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tag.orange { background: rgba(255,107,53,0.06); border-color: rgba(255,107,53,0.2); color: var(--accent2); }
+  .tag.purple { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); color: var(--accent3); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5,9,14,0.92);
+    z-index: 100;
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    max-width: 660px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    position: relative;
+    animation: modalIn 0.3s ease;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.25rem; right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--text); }
+
+  .modal-num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-title {
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+
+  .modal-desc {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.75rem;
+  }
+
+  .modal-section-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .modal-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .modal-list li {
+    font-family: var(--mono);
+    font-size: 0.73rem;
+    color: var(--text);
+    line-height: 1.6;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .modal-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .modal-outcome {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--accent);
+    background: rgba(0,229,255,0.04);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── SKILLS TABLE ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .skill-cell {
+    background: var(--surface);
+    padding: 1.5rem 1.75rem;
+    transition: background 0.2s;
+  }
+  .skill-cell:hover { background: #111d2b; }
+
+  .skill-cat {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .skill-list {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 1rem;
+  }
+
+  .footer-name {
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes expandLine {
+    to { transform: scaleX(1); }
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ── REVEAL ON SCROLL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<header>
+  <p class="hero-tag">// DevOps Portfolio · 2024–Present</p>
+  <h1>UJJWAL<br/><span>KUMAR</span><br/>SHARMA</h1>
+  <p class="hero-sub">
+    DevOps Engineer at TCS (Client: American Express)<br/>
+    Building scalable cloud infra · CI/CD automation · Kubernetes orchestration
+  </p>
+  <div class="hero-badges">
+    <span class="badge">AWS</span>
+    <span class="badge">Terraform</span>
+    <span class="badge">Kubernetes</span>
+    <span class="badge">Docker</span>
+    <span class="badge">GitHub Actions</span>
+    <span class="badge">ArgoCD</span>
+    <span class="badge">Prometheus</span>
+    <span class="badge">Ansible</span>
+    <span class="badge">Istio</span>
+    <span class="badge">ELK Stack</span>
+  </div>
+  <div class="hero-scroll">scroll to explore</div>
+</header>
+
+<!-- ── PROJECTS ── -->
+<section>
+  <div class="section-header">
+    <span class="section-num">01 //</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section>
+  <div class="section-header">
+    <span class="section-num">02 //</span>
+    <h2 class="section-title">Skills</h2>
+  </div>
+  <div class="skills-grid reveal" id="skillsGrid"></div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-name">Ujjwal Kumar Sharma</div>
+  <div class="footer-links">
+    <a href="https://github.com/ujjwalSharma267" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/ujjal-kumar-sharma" target="_blank">LinkedIn</a>
+    <a href="mailto:ujjals267@gmail.com">Email</a>
+  </div>
+</footer>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const projects = [
+  {
+    num: "01",
+    title: "Multi-Env AWS Infrastructure with Terraform",
+    desc: "Reusable Terraform module library that provisions full dev/staging/prod environments with a single terraform apply.",
+    tags: [["Terraform",""], ["AWS","orange"], ["Remote State",""], ["GitHub Actions","purple"]],
+    accentColor: "#00e5ff",
+    components: [
+      "modules/ for VPC, EC2, IAM, S3 and security groups",
+      "Separate environments/dev and environments/prod variable configs",
+      "Remote state in S3 with DynamoDB state locking",
+      "GitHub Actions: plan on PR, apply on merge to main"
+    ],
+    outcome: "Shows IaC maturity, environment isolation, and GitOps discipline — a top signal for senior DevOps roles."
+  },
+  {
+    num: "02",
+    title: "End-to-End CI/CD Pipeline: GitHub Actions → EKS",
+    desc: "Full GitOps pipeline — push code, build Docker image, push to ECR, ArgoCD syncs to EKS automatically.",
+    tags: [["GitHub Actions",""], ["Docker","orange"], ["EKS",""], ["ArgoCD","purple"], ["Helm",""]],
+    accentColor: "#ff6b35",
+    components: [
+      "Multi-stage Dockerfile for a Node/Python app",
+      "GitHub Actions: lint → test → build → push to ECR",
+      "Helm chart with HPA and rolling update strategy",
+      "ArgoCD watching the Helm chart repo for auto-sync"
+    ],
+    outcome: "Demonstrates the complete DevOps loop with real GitOps principles — one of the most requested project types in DevOps interviews."
+  },
+  {
+    num: "03",
+    title: "Kubernetes Observability Stack",
+    desc: "Production-grade monitoring on Kubernetes with Prometheus, Grafana, AlertManager, and Loki for logs.",
+    tags: [["Prometheus",""], ["Grafana","orange"], ["Loki","purple"], ["AlertManager",""]],
+    accentColor: "#a78bfa",
+    components: [
+      "kube-prometheus-stack Helm chart deployment",
+      "Grafana Loki with Promtail as log shipper on each node",
+      "Custom dashboards: pod health, CPU/memory, request latency",
+      "AlertManager rules → Slack/email notifications"
+    ],
+    outcome: "Shows end-to-end observability ownership — directly maps to your 30% incident reduction achievement at AmEx."
+  },
+  {
+    num: "04",
+    title: "Ansible-Driven Server Hardening & Deployment",
+    desc: "Ansible playbooks that take a raw EC2 instance from zero to hardened, production-ready app server.",
+    tags: [["Ansible",""], ["Linux","orange"], ["Bash","purple"], ["AWS EC2",""]],
+    accentColor: "#00e5ff",
+    components: [
+      "Roles: common (updates, SSH), security (fail2ban, UFW, CIS benchmarks), app (Docker deploy)",
+      "Dynamic inventory using the AWS EC2 Ansible plugin",
+      "Ansible Vault encrypted secrets for credentials",
+      "Bash wrapper script for one-command full execution"
+    ],
+    outcome: "Proves configuration management expertise and security-first thinking for production environments."
+  },
+  {
+    num: "05",
+    title: "Microservices Platform with Istio Service Mesh",
+    desc: "3-service microservices app on Kubernetes with Istio controlling traffic, security, and observability.",
+    tags: [["Istio",""], ["Kubernetes","orange"], ["mTLS","purple"], ["Canary Deploy",""]],
+    accentColor: "#ff6b35",
+    components: [
+      "Istio install with automatic sidecar injection",
+      "VirtualService + DestinationRule for 90/10 canary traffic split",
+      "Mutual TLS (mTLS) enforced between all services",
+      "Kiali + Jaeger dashboards for mesh visualization and tracing"
+    ],
+    outcome: "Istio is a niche, high-value skill — very few early-career DevOps engineers have real hands-on experience with service mesh."
+  },
+  {
+    num: "06",
+    title: "DevSecOps Pipeline with SonarQube + Container Security",
+    desc: "CI/CD pipeline extended with security gates: SAST, secret scanning, and container vulnerability checks.",
+    tags: [["SonarQube",""], ["Trivy","orange"], ["Vault","purple"], ["GitHub Actions",""]],
+    accentColor: "#a78bfa",
+    components: [
+      "SonarQube via Docker Compose for SAST analysis",
+      "GitHub Actions: pipeline fails if quality gate score drops",
+      "Trivy for Docker image vulnerability scanning before push",
+      "HashiCorp Vault or AWS Secrets Manager for runtime secrets"
+    ],
+    outcome: "DevSecOps is a fast-growing requirement. This project differentiates you from pure operations engineers."
+  },
+  {
+    num: "07",
+    title: "ELK Stack Centralized Logging Platform",
+    desc: "Self-hosted ELK stack ingesting logs from multiple sources into searchable Kibana dashboards.",
+    tags: [["Elasticsearch",""], ["Logstash","orange"], ["Kibana","purple"], ["Filebeat",""]],
+    accentColor: "#00e5ff",
+    components: [
+      "Docker Compose: Elasticsearch + Logstash + Kibana",
+      "Logstash pipelines with Grok filters for structured parsing",
+      "Filebeat agents on app servers shipping logs centrally",
+      "Kibana dashboards: error rates, top endpoints, geographic IP maps"
+    ],
+    outcome: "Deepens your logging story — directly relatable to real-world incident analysis work at American Express."
+  }
+];
+
+const skills = [
+  { cat: "Cloud", list: "AWS EC2, VPC, IAM\nRoute53, S3, EKS, ECR\nCloudWatch" },
+  { cat: "CI/CD & Automation", list: "Jenkins, GitHub Actions\nGitOps Workflows\nArgoCD" },
+  { cat: "Containers & Orchestration", list: "Docker, Kubernetes (EKS)\nHelm, HPA, Ingress\nService Discovery" },
+  { cat: "Infrastructure as Code", list: "Terraform, Modules\nRemote State\nProvisioning" },
+  { cat: "Monitoring", list: "Prometheus, Grafana\nAlertManager\nCloudWatch" },
+  { cat: "Logging & Analytics", list: "ELK Stack\nGrafana Loki\nLog Analysis" },
+  { cat: "Service Mesh", list: "Istio\nTraffic Management\nService Discovery" },
+  { cat: "DevSecOps", list: "SonarQube\nSecrets Management\nContainer Security" },
+  { cat: "Config Management", list: "Ansible\nAnsible Playbooks" },
+  { cat: "OS & Scripting", list: "Linux (Ubuntu, Amazon)\nBash Scripting\nLinux Admin" },
+  { cat: "Networking", list: "TCP/IP, DNS, HTTP/S\nVPC, ALB/NLB\nK8s Services, Ingress" },
+  { cat: "Messaging", list: "RabbitMQ\nAsync Messaging" }
+];
+
+// Render projects
+const grid = document.getElementById('projectsGrid');
+projects.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'card reveal';
+  card.style.setProperty('--accent-color', p.accentColor);
+  card.innerHTML = `
+    <div class="card-num">PROJECT ${p.num}</div>
+    <div class="card-title">${p.title}</div>
+    <div class="card-desc">${p.desc}</div>
+    <div class="card-tags">${p.tags.map(([t,c]) => `<span class="tag ${c}">${t}</span>`).join('')}</div>
+  `;
+  card.addEventListener('click', () => openModal(i));
+  grid.appendChild(card);
+});
+
+// Render skills
+const sg = document.getElementById('skillsGrid');
+skills.forEach(s => {
+  const cell = document.createElement('div');
+  cell.className = 'skill-cell';
+  cell.innerHTML = `<div class="skill-cat">${s.cat}</div><div class="skill-list">${s.list.replace(/\n/g,'<br/>')}</div>`;
+  sg.appendChild(cell);
+});
+
+// Modal
+function openModal(idx) {
+  const p = projects[idx];
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-num">PROJECT ${p.num} / 07</div>
+    <div class="modal-title">${p.title}</div>
+    <div class="modal-desc">${p.desc}</div>
+    <div class="modal-section-title">// Key Components</div>
+    <ul class="modal-list">${p.components.map(c=>`<li>${c}</li>`).join('')}</ul>
+    <div class="modal-section-title">// Skills Used</div>
+    <div class="card-tags" style="margin-bottom:0">${p.tags.map(([t,c])=>`<span class="tag ${c}">${t}</span>`).join('')}</div>
+    <div class="modal-outcome">💡 ${p.outcome}</div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+document.getElementById('modalClose').addEventListener('click', () => {
+  document.getElementById('modalOverlay').classList.remove('open');
+});
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget)
+    document.getElementById('modalOverlay').classList.remove('open');
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('modalOverlay').classList.remove('open');
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 6) * 0.07}s`;
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
